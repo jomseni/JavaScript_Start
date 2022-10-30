@@ -1,17 +1,15 @@
-// if- else는 조건이 하나일 경우이고, 여러 조건을 따질땐 if-else if -else를 사용하여 조건문을 작성할 수 있다.
-const age = parseInt(prompt("How old are you?"));
+//  querySelector을 사용할 땐 CSS사용 방식이랑 같다  ex ) .클래스명 그 안의 태그  -> 이런모양으로 사용할 수 있다. 그러면 h1태그의 html 코드를 보여준다
+//  또한 querySelector 는 조건에 맞는 태그들이 여러 개가 동시에 있을때 가장 첫 번째 요소만 가져온다!
 
-//  ||는 OR연산자로서 두 조건 중 하나만 true 값을 만족하면 if문을 수행한다!
-if(isNaN(age) || age < 0 ){ 
-    console.log("Please write a real positive number"); // 입력 값이 문자일 경우
-}else if(age < 18){
-    console.log("You are too young!");
-}else if(age >= 18 && age <= 50){   // &&연산자는 AND 연산자로서 두 조건에 모두 true여야만 수행한다
-    console.log("You can drink!");
-}else if(age >= 50 && age <=80){
-    console.log("You should exercise!");
-}else if(age > 80){
-    console.log("You can do whatever you want");
-}
+const title = document.querySelector(".hello h1"); //hello클래스안에 h1태그를 가져오와서 title에 대입한다!
 
-// 음주 가능 계산기!
+console.log(title);   //위에서 정의한 title에 대한 값을  출력한다(콘솔로)
+
+
+// 클래스의 이름에 맞고 태그와 맞는 모두를 가져오고 싶으면 querySelectorAll을 사용해 모두 가져오면 된다 -> array방식으로 가져올것이다
+// console.log(document.querySelectorAll(".hello h1"));
+
+// console.log(title2);
+
+title.innerText = "Hello";
+
