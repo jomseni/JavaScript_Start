@@ -1,10 +1,14 @@
-const age = 96;
-function calculatorKrAge(ageOfForeigner){
-    
-    // return을 사용해주면 이 함수를 실행 후  실행문의 값을 return하여 그 함수 결과값을 변수에 저장할 수 있다.
-    return ageOfForeigner + 2;
-}
+// 키보드 값은 문자이다.
+// 키보드 값 문자로 받은 후 parseInt()를 이용하여 정수형으로 변수를 바꿔준 호 age 변수에 대입
+const age = parseInt( prompt("How old are you?") );
+ 
 
-const krAge = calculatorKrAge(age);  // 함수 호출 한 자리에 값이 대체되어진다 따라서 krAge = 98이 된다
+// 1. 숫자를 입력할 경우,숫자 정수가 출력 된다!
+// 2. 문자를 입력할 경우, 첫번 째 출력에서 숫자가 아니다!(NaN) 나옴
+console.log(age);
 
-console.log(krAge); //98 출력
+ 
+ 
+
+
+//  입력 값의 타입을 보는 방법! console.log(typeof 변수, typeof 변수)
