@@ -1,30 +1,10 @@
-// 계산기 만들기! 개체 안에 함수를 추가해서 만들어보기!
-
-const calculator = {
-    name : "nico",
-    add : function(a,b){
-        console.log(a + b);
-    },
+const age = 96;
+function calculatorKrAge(ageOfForeigner){
     
-    min : function(a,b){
-        console.log(a-b);
-    },
+    // return을 사용해주면 이 함수를 실행 후  실행문의 값을 return하여 그 함수 결과값을 변수에 저장할 수 있다.
+    return ageOfForeigner + 2;
+}
 
-    mul : function(a,b){
-        console.log(a *b);
-    },
+const krAge = calculatorKrAge(age);  // 함수 호출 한 자리에 값이 대체되어진다 따라서 krAge = 98이 된다
 
-    pof : function(a,b){
-        console.log(a**b);
-    },
-
-    div : function(a,b){
-        console.log(a / b);
-    }
-};
-
-calculator.add(5,1);  //6
-calculator.min(4,1);  //3 
-calculator.mul(3,2);  // 6
-calculator.pof(2,5);  // 32
-calculator.div(8,2);   //4
+console.log(krAge); //98 출력
