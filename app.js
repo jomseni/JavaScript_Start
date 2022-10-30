@@ -1,15 +1,15 @@
-//  querySelector을 사용할 땐 CSS사용 방식이랑 같다  ex ) .클래스명 그 안의 태그  -> 이런모양으로 사용할 수 있다. 그러면 h1태그의 html 코드를 보여준다
-//  또한 querySelector 는 조건에 맞는 태그들이 여러 개가 동시에 있을때 가장 첫 번째 요소만 가져온다!
+// 객체 document에서의 html 에서 hello의 이름을 가진 클래스의 h1태그 중 가장 첫 번째 요소를 변수 title이라 지정한다
+const title = document.querySelector(".hello h1"); 
 
-const title = document.querySelector(".hello h1"); //hello클래스안에 h1태그를 가져오와서 title에 대입한다!
+console.log(title); // h1태그를 출력한다
 
-console.log(title);   //위에서 정의한 title에 대한 값을  출력한다(콘솔로)
+title.innerText = "Hello";  //title의 innerText를 수정한다.
+
+console.dir(title); // dir을 통해서 이 h1객체가 사용할 수 있는 메서드들을 볼 수있다.
+
+title.style.color = "blue";  // 객체의 경로를 통해 여러가지 변경을 할 수 있다. 
 
 
-// 클래스의 이름에 맞고 태그와 맞는 모두를 가져오고 싶으면 querySelectorAll을 사용해 모두 가져오면 된다 -> array방식으로 가져올것이다
-// console.log(document.querySelectorAll(".hello h1"));
 
-// console.log(title2);
 
-title.innerText = "Hello";
 
