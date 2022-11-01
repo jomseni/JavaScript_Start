@@ -20,25 +20,25 @@ const USERNAME_KEY = "username";
 
 // submit 이벤트를 감지하면 발생하는 행동의 함수이다. submit은 엔터를 누르거나 버튼을 클릭할 때 발생함
 function onLoginSubmit(event){
-
     // preventDefault 함수는 어떤 event의 기본 행동이 발생하지 않도록 막는 것이다. 따라서 form input을 submit시에 브라우저의 기본 행동인 새로고침을 막을 수 있다.
     event.preventDefault();
     // loginForm 객체에  없는 클래스라면 추가 해주라는 코드 이다!
     // loginInput의 값을 변수에 저장
-    const username = loginInput.value;
+    // const username = loginInput.value; 
 
     // 이벤트 함수 수행 시에 input에 입력되는 값을 DB에 저장한다.  
-    // 매개변수 앞의 username은 저장될 아이템의 이름이고, 뒤의 username은 우리가  키보드 입력 값으로 받아 올 변수이다.
-    localStorage.setItem(USERNAME_KEY, username);
+    
  
     // classList를 통해서 클래스를 없으면 만들어주고, 이미 있는 것은 지워준다. 그러면 submit하면 HTML태그에 변화가 생긴다.
     loginForm.classList.add(HIDDEN_CLASSNAME);
+    // 매개변수 앞의 username은 저장될 아이템의 이름이고, 뒤의 username은 우리가  키보드 입력 값으로 받아 올 변수이다.
+    localStorage.setItem(USERNAME_KEY, loginInput.value);
 
     //greeting.innerText = "Hello " + username; 문자열 합치기엔 이 방법도 있지만
     // 이 방법이 조금 더 많이 사용되니깐 이 방법으로 사용하자 ,string과 변수를 합치는 방법!!! 변수를 String안에 포함시키는 방법이다
     // greeting.innerText = `Hello ${username}`;
     // greeting.classList.remove(HIDDEN_CLASSNAME);
-    paintGreetings(username);
+    paintGreetings();
     
 }
 
@@ -46,7 +46,8 @@ function onLoginSubmit(event){
 // loginForm.addEventListener("submit",onLoginSubmit);
 
 // greeting.innerText = `Hello ${username}`;  와 greeting.classList.remove(HIDDEN_CLASSNAME); 이게 이벤트 함수 열렸을 때와 조건문에서 두 번 반복되어 사용되어있으므로 함수를 만들어 간단하게 작성해보자!
-function paintGreetings(username){
+function paintGreetings(){
+    const username = localStorage.getItem(USERNAME_KEY);
     greeting.innerText = `Hello ${username}`;
     greeting.classList.remove(HIDDEN_CLASSNAME);
 }
@@ -57,13 +58,13 @@ if(savedUsername === null){
     //  show the form
     loginForm.classList.remove(HIDDEN_CLASSNAME);
     loginForm.addEventListener("submit",onLoginSubmit);
-}else{
+}else{ //새로 고침을 하여도 그대로 h1태그를 유지하는 경우를 만들어 준다.
     //show the greetings hidden 클래스를 지워주면서 h1을 보이게 한다!
     // greeting.classList.remove(HIDDEN_CLASSNAME);
     // // 여기서 username 변수가 없으므로 saveUsername 으로 바꾸어 주어야한다!
     // greeting.innerText = `Hello ${savedUsername}`;
     // 여러 군데에서 반복되는 실행문을 함수 하나로 정의했으므로 함수를 실행하여 실행문들을 실행시킨다.
-    paintGreetings(savedUsername);
+    paintGreetings();
 }
  
 
