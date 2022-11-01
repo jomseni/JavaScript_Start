@@ -5,34 +5,34 @@
 // const loginButton = loginForm.querySelector("button");
 
 
-const loginForm = document.querySelector("#login-form")  //HTML의 form 태그를 끌고와서 객체로 만듦
+const loginForm = document.querySelector("#login-form")  //HTML의 form 태그를 끌고와서 변수를 객체로 만듦
 const loginInput = document.querySelector("#login-form input");               //괄호 안은  ID값의 (공백) 하위 선택자(input)로서 하위에 있는 것을 나타내는 것 : 결론적으로 input이 중요
-
+const greeting = document.querySelector("#greeting");
 const link = document.querySelector("a");  //HTML의 a태그를 가져와서 객체로 만듦
+ 
+// hidden이라는 클래스명을 두 번이상 사용하기 때문에 작성 해 준다. 오타 방지용!
+const HIDDEN_CLASSNAME = "hidden";
 
 // submit 이벤트를 감지하면 발생하는 행동의 함수이다. submit은 엔터를 누르거나 버튼을 클릭할 때 발생함
 function onLoginSubmit(event){
 
     // preventDefault 함수는 어떤 event의 기본 행동이 발생하지 않도록 막는 것이다. 따라서 form input을 submit시에 브라우저의 기본 행동인 새로고침을 막을 수 있다.
     event.preventDefault();
-    // 인수를 넣고 이 이벤트에 대한 정보들을 가져올 수 있다.
-    console.log(loginInput.value);
-}
+    // loginForm 객체에  없는 클래스라면 추가 해주라는 코드 이다!
+    const username = loginInput.value;
 
-// 원래 a태그의 기본동작은 클릭시에 정해놓으면 페이지에 이동하는 것이다
-//그러나 alert를 작성해줌으로써 그 기본 동작을 막아줄 수 있다.그러나 alert의 버튼을 누른 후엔 다시 기본동작이 진행 된다
-function handleLinkClick(event){
-    event.preventDefault();
-    console.dir(event);
+    // classList를 통해서 클래스를 없으면 만들어주고, 이미 있는 것은 지워준다. 그러면 submit하면 HTML태그에 변화가 생긴다.
+    loginForm.classList.add(HIDDEN_CLASSNAME);
+
+    //greeting.innerText = "Hello " + username; 문자열 합치기엔 이 방법도 있지만
+    // 이 방법이 조금 더 많이 사용되니깐 이 방법으로 사용하자 ,string과 변수를 합치는 방법!!! 변수를 String안에 포함시키는 방법이다
+    greeting.innerText = `Hello ${username}`;
+    greeting.classList.remove(HIDDEN_CLASSNAME);
     
 }
 
-
 // 누군가 form을 submit하면 JS가 이 함수를 호출 하도록 하고 있는 것! JS에게 이 정보를 넘기는 것과 같다
 loginForm.addEventListener("submit",onLoginSubmit);
-
-// 누군가 link객체를 click하면 js가 이 함수를 호출한다.
-link.addEventListener("click", handleLinkClick); 
 
 
 
