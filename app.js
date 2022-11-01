@@ -9,8 +9,8 @@ const loginButton = document.querySelector("#login-form button");               
 
 //클릭 이벤트 연결 (버튼을 누르면 칸에 작성한걸 추후엔 데이터 저장도 가능하게 하기 위해서!)
 function onLoginBtnClick(){
-    console.log("hello",loginInput.value);
+    const username = loginInput.value;
+    console.log(username);
 }
-
 
 loginButton.addEventListener("click",onLoginBtnClick);
