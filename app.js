@@ -19,7 +19,12 @@ function onLoginSubmit(event){
     // preventDefault 함수는 어떤 event의 기본 행동이 발생하지 않도록 막는 것이다. 따라서 form input을 submit시에 브라우저의 기본 행동인 새로고침을 막을 수 있다.
     event.preventDefault();
     // loginForm 객체에  없는 클래스라면 추가 해주라는 코드 이다!
+    // loginInput의 값을 변수에 저장
     const username = loginInput.value;
+
+    // 이벤트 함수 수행 시에 input에 입력되는 값을 DB에 저장한다.
+    // 매개변수 앞의 username은 저장될 아이템의 이름이고, 뒤의 username은 우리가  키보드 입력 값으로 받아 올 변수이다.
+    localStorage.setItem("username", username);
 
     // classList를 통해서 클래스를 없으면 만들어주고, 이미 있는 것은 지워준다. 그러면 submit하면 HTML태그에 변화가 생긴다.
     loginForm.classList.add(HIDDEN_CLASSNAME);
