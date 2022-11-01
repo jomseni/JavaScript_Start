@@ -8,6 +8,7 @@
 const loginForm = document.querySelector("#login-form")  //HTML의 form 태그를 끌고와서 객체로 만듦
 const loginInput = document.querySelector("#login-form input");               //괄호 안은  ID값의 (공백) 하위 선택자(input)로서 하위에 있는 것을 나타내는 것 : 결론적으로 input이 중요
 
+const link = document.querySelector("a");  //HTML의 a태그를 가져와서 객체로 만듦
 
 // submit 이벤트를 감지하면 발생하는 행동의 함수이다. submit은 엔터를 누르거나 버튼을 클릭할 때 발생함
 function onLoginSubmit(event){
@@ -18,8 +19,21 @@ function onLoginSubmit(event){
     console.log(loginInput.value);
 }
 
+// 원래 a태그의 기본동작은 클릭시에 정해놓으면 페이지에 이동하는 것이다
+//그러나 alert를 작성해줌으로써 그 기본 동작을 막아줄 수 있다.그러나 alert의 버튼을 누른 후엔 다시 기본동작이 진행 된다
+function handleLinkClick(event){
+    event.preventDefault();
+    console.dir(event);
+    
+}
+
+
 // 누군가 form을 submit하면 JS가 이 함수를 호출 하도록 하고 있는 것! JS에게 이 정보를 넘기는 것과 같다
 loginForm.addEventListener("submit",onLoginSubmit);
+
+// 누군가 link객체를 click하면 js가 이 함수를 호출한다.
+link.addEventListener("click", handleLinkClick); 
+
 
 
  
