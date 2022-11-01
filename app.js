@@ -22,7 +22,7 @@ function onLoginSubmit(event){
     // loginInput의 값을 변수에 저장
     const username = loginInput.value;
 
-    // 이벤트 함수 수행 시에 input에 입력되는 값을 DB에 저장한다.
+    // 이벤트 함수 수행 시에 input에 입력되는 값을 DB에 저장한다.  
     // 매개변수 앞의 username은 저장될 아이템의 이름이고, 뒤의 username은 우리가  키보드 입력 값으로 받아 올 변수이다.
     localStorage.setItem("username", username);
 
