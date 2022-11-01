@@ -1,9 +1,14 @@
 const clock = document.querySelector("#clock");
 
-function sayHello(){
-    console.log("hello");
+function getClock(){
+    const date = new Date();
+    clock.innerText = `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`;
 }
 
-//setTimeout 함수는 두 개의 인수를 받는다. 첫 번째 인수는 먼저 호출하려고 하는 function을 넣어주고, 두 번째 인수는 얼마나 기다릴지 ms단위로 넣어주면된다.
+// 함수를 이렇게 바로 적어버리면 함수가 바로 실행되는 버튼을 설정해준것과 같다. 왜냐하면 ()이것을 사용하면 함수를 바로 실행하게 하기 때문이다!
+// 이것을 적지 않으면 처음에 00:00 이었다가 1초 후에 setInterval함수가 실행된다.
+getClock();
+// 매 1초마다 getClock 함수 실행 이것만 적으면 1초 있다가 콘솔이 찍힘, 브라우저가 켜지자마자 시간이 바로 찍히게 하기위해 위에 코드를 작성해준다.
+setInterval(getClock, 1000);
 
-setTimeout(sayHello,5000);
+ 
