@@ -26,13 +26,32 @@ function paintToDo(newTodo){
     // 앞 li는 변수 명, 뒤에 ""안에 있는 li는 태그 이다.
     const li = document.createElement("li");
     const span = document.createElement("span");
-    // 이렇게 변수 명만 만들었을땐 아직 이 요소들이 어디안에 위치 해있는지 알수 없고 변수만 만든 것!이제 아래코드를 추가해서 태그의 위치를 HTML에서 배치시켜보자
-    li.appendChild(span); // li는 이제 span이라는 자식을 가지게 되었다. HTML에 위치를 배치시킨다
+    // span을 만들고 span에 쓰여질 입력 값 newTodo를 span.innertext에 넣어 줌!
     span.innerText = newTodo; // 입력 값이 저장된 newTodo가 이제 span의 innertext 가 된 것! 아그리고 span을 사용 이유는 이후에 옆에 버튼을 만들것이기 때문인다 div로 만들면 한 라인을 다차지하므로 인 라인 방식이 아닌 블럭 방식인 span을 사용한 것이다!
+    const button = document.createElement("button");
+    // 이렇게 변수 명만 만들었을땐 아직 이 요소들이 어디안에 위치 해있는지 알수 없고 변수만 만든 것!이제 아래코드를 추가해서 태그의 위치를 HTML에서 배치시켜보자
+    button.innerText ="❌";
+    
+    // 버튼을 눌렀을 때 어떠한 반응을 만드는것? 바로 이벤트리스너!!!! 만들어준다. 지금은 버튼을 만들기만 해서 아무 반응이 없음
+    button.addEventListener("click",delteToDo)
+    
+    // 항상 appendChild는 맨 마지막에 작성되어야한다! 과정을 생각해보면 당연하다! 변수 만들기 -> 이름 적어주기 -> 위치 배치 이 부분을 작성해야 HTML이 작성되면서 브라우저에 표시 된다.
+    li.appendChild(span); // li는 이제 span이라는 자식을 가지게 되었다. HTML에 위치를 배치시킨다
+    li.appendChild(button); //li는  button이라는 자식을 가짐. 이 코드를 작성해줘야 HTML에 위치 한다.그 전엔 변수만 생성 F12에도 element부분에 출력되지 않음
     toDoList.appendChild(li); //ul의 자식으로 li를 만들어 줆  이 코드를 작성해줘야 HTML에 위치에 맞게 들어간다.
 
 }
 
+// 버튼 이벤트리스너 인수에 들어 갈 delete 함수를 정의해준다.
+// event가 addEventListener함수의 첫 번째 인수인 어떤 이벤트 인지 말해준다고 이해해도 괜찮을듯! 
+// 여기선 따라서 event = click이 들어온다! 이렇게 생각!
+// 버튼 클릭 이벤트에선 button이 가지고 있는 property , 즉 사용 가능한 함수 중에 parentElement나 parentNode 가 있고 이것의 뒤에 innertext를 추가하고 실행하여 , console 해보면 클릭 된게 어떠한 버튼인지 알 수 있다.  
+function delteToDo(event){
+    // console.log(event.target.parentElement.innerText); 눌린 버튼의 정확한 위치를 알 수 있는 코드
+    // 매우중요한 개념!!!!! ==> target은 클릭 된 HTML element이며, 그리고 모든 HTML element에는 하나 이상의 property가 있다. parentElement는 클릭 된 element의 부모이다. 즉 여기서 button의 부모는 li를 지칭!
+    const li  = event.target.parentElement;  //삭제하고 싶은 li
+    li.remove(); // li를 지운다
+}
 
 
 // toDoForm 객체를 submit(엔터나 클릭(event)) 하면 handleToDoSubmit함수를 JS가 실행한다. 개발한 사용자가 실행시키는 것이 아니다!
