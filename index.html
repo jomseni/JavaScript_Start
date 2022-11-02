@@ -10,7 +10,7 @@
     <title>JavaScript_Hi</title>
 </head>
 <body>
-
+    <h2 id="clock"></h2>
     <form id="login-form" class = "hidden">
         <!-- 인 풋 만들기! -->
         <input 
@@ -21,9 +21,14 @@
         />
         <button>Log In</button>
     </form>
-
-    <h2 id="clock"></h2>
     <h1 id="greeting" class="hidden"></h1>
+    <!-- 사용자가 todo를 입력 해야만 하고 ,list도 필요하므로(나열을 위해) form 태그가 필요하다 -->
+    <!-- required는 필수를 뜻 한다. -->
+    <form id="todo-form">
+        <input type="text" placeholder="Write a To Do and Press Enter" required/>
+    </form>
+    <ul id="todo-list"></ul>
+    <!-- li는 만들지 않을 것! 왜냐하면 JS로 만들 것이기 때문이다. -->
     <div id = "quote">
         <span></span>
         <span></span>
@@ -33,5 +38,6 @@
     <script src="js/clock.js"></script>
     <script src="js/quotes.js"></script>
     <script src="js/background.js"></script>
+    <script src="js/todo.js"></script>
 </body>
 </html>
