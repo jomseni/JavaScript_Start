@@ -3,6 +3,15 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("input");
 const toDoList = document.getElementById("todo-list");
 
+// 저장을 위해 배열을 만든다.
+// 그리고 이제 newTodo가 그려질 때마다 그 텍스트를 array에 push 할 것이다! 따라서 toDos 배열을 가지고 와서 newTodo를 push 할 것이다.
+const toDos = [];
+
+function saveToDos(){
+    // 배열에 저장된 값을 그냥 저장하면 문자로 저장되지만 함수 JSON.stringify()를 이용하면 배열의 형태로 저장 된다.
+    localStorage.setItem("todos", JSON.stringify(toDos));
+}
+
 
 // element(요소) = 태그 
 
@@ -17,7 +26,9 @@ function handleToDoSubmit(event){
     // const 변수에 입력 값을 저장 해 놓았으므로 이 코드 다음엔 input의 value를 가지고 무얼 하든 newToDo에는 아무 영향이 없다.
     toDoInput.value = ""; //그리고 input 값을 빈 칸으로만들어
     console.log(newTodo, toDoList.value);  //여기서 이걸 출력하면 newTodo는 const이므로 아까 입력 값이 그대로 출력되고, toDoList.value의 값은 위 코드에서 공백으로 대입해줬으니 공백이 출력 된다.
+    toDos.push(newTodo);  // toDos 배열을 가지고 와서 newTodo를 push 할 것이다.
     paintToDo(newTodo);
+    saveToDos(); //toDo리스트 만든 후 저장
 }
 
 // toDo를 그리는 역할을 해주는 함수를 만들어 준다.(HTML에 만들어 주기)
