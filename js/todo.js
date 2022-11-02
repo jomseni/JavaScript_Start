@@ -3,13 +3,17 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("input");
 const toDoList = document.getElementById("todo-list");
 
+// 두 번 이상 사용되므로 const 변수로 바꾸어 오타를 줄여 준다.
+const TODOS_KEY = "todos"
+
 // 저장을 위해 배열을 만든다.
 // 그리고 이제 newTodo가 그려질 때마다 그 텍스트를 array에 push 할 것이다! 따라서 toDos 배열을 가지고 와서 newTodo를 push 할 것이다.
 const toDos = [];
 
 function saveToDos(){
     // 배열에 저장된 값을 그냥 저장하면 문자로 저장되지만 함수 JSON.stringify()를 이용하면 배열의 형태로 저장 된다.
-    localStorage.setItem("todos", JSON.stringify(toDos));
+    // setItem의 앞 인수는 저장소의 key값을 말하고 뒤 인수는 값이다!
+    localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
 
 
@@ -25,7 +29,7 @@ function handleToDoSubmit(event){
     const newTodo = toDoInput.value; // 입력 값을 const newTodo 에 저장!
     // const 변수에 입력 값을 저장 해 놓았으므로 이 코드 다음엔 input의 value를 가지고 무얼 하든 newToDo에는 아무 영향이 없다.
     toDoInput.value = ""; //그리고 input 값을 빈 칸으로만들어
-    console.log(newTodo, toDoList.value);  //여기서 이걸 출력하면 newTodo는 const이므로 아까 입력 값이 그대로 출력되고, toDoList.value의 값은 위 코드에서 공백으로 대입해줬으니 공백이 출력 된다.
+    // console.log(newTodo, toDoList.value);  //여기서 이걸 출력하면 newTodo는 const이므로 아까 입력 값이 그대로 출력되고, toDoList.value의 값은 위 코드에서 공백으로 대입해줬으니 공백이 출력 된다.
     toDos.push(newTodo);  // toDos 배열을 가지고 와서 newTodo를 push 할 것이다.
     paintToDo(newTodo);
     saveToDos(); //toDo리스트 만든 후 저장
@@ -64,6 +68,24 @@ function delteToDo(event){
     li.remove(); // li를 지운다
 }
 
+// 배열로 만들어진 parsedToDos의 각각 인덱스에 function을 각각 넣어준다. 아래 코드 parsedToDos.forEach((item) => console.log("this is the turn of ", item));과 동일하다. 난 후자의 방법을 선택
+// function sayHello(item){
+//     console.log(`this is the turn of ${item}`);
+// }
+
 
 // toDoForm 객체를 submit(엔터나 클릭(event)) 하면 handleToDoSubmit함수를 JS가 실행한다. 개발한 사용자가 실행시키는 것이 아니다!
 toDoForm.addEventListener("submit",handleToDoSubmit);
+
+// localStorage에 있는 key값이 "todos"인 string으로 된 값을 getItem함수를 통해  array로 가져와서 그 배열을 이름이 savedToDos인 객체로 만들어 준다!
+const savedToDos = localStorage.getItem(TODOS_KEY);
+// console.log(savedToDos);  여기서 로그 찍을 경우 string형태로 나옴. 아직 JSON.parse롤 배열로 안바꿔주었기 때문
+if(savedToDos !== null){
+    const parsedToDos = JSON.parse(savedToDos);
+    // console.log(parsedToDos); 여기서 로그 찍으면 이젠 아까의 문자들이 배열로 찍힌다. 이제 배열의 각각 item으로 이용 가능하게 해준다. JS는 array에 있는 각각의 item에 대해 function을 실행할 수 있게 해준다.
+    // forEach 함수는 그 array에 있는 각각의 item의 각각 function을 설명한다.
+    parsedToDos.forEach((item) => console.log("this is the turn of ", item)); // 배열로 만들어진 parsedToDos의 각각 아이템에 대해 function을 넣어준다.
+
+
+        
+}
