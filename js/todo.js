@@ -8,7 +8,7 @@ const TODOS_KEY = "todos"
 
 // 저장을 위해 배열을 만든다.
 // 그리고 이제 newTodo가 그려질 때마다 그 텍스트를 array에 push 할 것이다! 따라서 toDos 배열을 가지고 와서 newTodo를 push 할 것이다.
-const toDos = [];
+let toDos = [];   // toDos를 실행할 때 마다 초기화하는게 아니라 입력한 값을 넣고 새로고침 하여도 누적이 되도록 const 에서 let으로 바꿔준다.
 
 function saveToDos(){
     // 배열에 저장된 값을 그냥 저장하면 문자로 저장되지만 함수 JSON.stringify()를 이용하면 배열의 형태로 저장 된다.
@@ -35,7 +35,7 @@ function handleToDoSubmit(event){
     saveToDos(); //toDo리스트 만든 후 저장
 }
 
-// toDo를 그리는 역할을 해주는 함수를 만들어 준다.(HTML에 만들어 주기)
+// toDo를 그리는 역할을 해주는 함수를 만들어 준다.(HTML에 만들어 주기) 브라우저 화면 우리가 입력한 값들을 눈으로 보여주는 함수
 function paintToDo(newTodo){
     // background 에서 JS로 HTML을 만들어 body에 넣어준 것처럼 li를 만들어 줄 것이다!
     // 앞 li는 변수 명, 뒤에 ""안에 있는 li는 태그 이다.
@@ -69,7 +69,7 @@ function delteToDo(event){
 }
 
 // 배열로 만들어진 parsedToDos의 각각 인덱스에 function을 각각 넣어준다. 아래 코드 parsedToDos.forEach((item) => console.log("this is the turn of ", item));과 동일하다. 난 후자의 방법을 선택
-// function sayHello(item){
+// function sayHello(item){       이 라인 코드에서 item은 리스너에서 event처럼 그냥 들어가면 되는 인수이다. item은 배열의 각각의 요소 이다
 //     console.log(`this is the turn of ${item}`);
 // }
 
@@ -82,10 +82,10 @@ const savedToDos = localStorage.getItem(TODOS_KEY);
 // console.log(savedToDos);  여기서 로그 찍을 경우 string형태로 나옴. 아직 JSON.parse롤 배열로 안바꿔주었기 때문
 if(savedToDos !== null){
     const parsedToDos = JSON.parse(savedToDos);
+    toDos = parsedToDos;                        // 이전에 저장 되어 있던 데이터를 toDos로 대입하여 누적시킨다.
+    
     // console.log(parsedToDos); 여기서 로그 찍으면 이젠 아까의 문자들이 배열로 찍힌다. 이제 배열의 각각 item으로 이용 가능하게 해준다. JS는 array에 있는 각각의 item에 대해 function을 실행할 수 있게 해준다.
     // forEach 함수는 그 array에 있는 각각의 item의 각각 function을 설명한다.
-    parsedToDos.forEach((item) => console.log("this is the turn of ", item)); // 배열로 만들어진 parsedToDos의 각각 아이템에 대해 function을 넣어준다.
+    parsedToDos.forEach(paintToDo); // 저장소에서 가져온 배열로 만들어진 parsedToDos의 각각 아이템에 대해 function을 넣어준다. HTML을 그려주게 됨 따라서 새로 고침을 해도 painToDo를 통해서 HTML이 localstorage에 있는 데이터와 같게 출력 된다.
 
-
-        
 }
