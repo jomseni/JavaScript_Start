@@ -74,6 +74,8 @@ function delteToDo(event){
     // 매우중요한 개념!!!!! ==> target은 클릭 된 HTML element이며, 그리고 모든 HTML element에는 하나 이상의 property가 있다. parentElement는 클릭 된 element의 부모이다. 즉 여기서 button의 부모는 li를 지칭!
     const li  = event.target.parentElement;  // 삭제하고 싶은 li
     li.remove(); // li를 지운다
+    toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id)); // 클릭했던 li의 id를 갖고있는 toDo를 지우고 싶다, 즉 그말은 toDo의 id가 li의 id와 다른 걸 남기고 싶다는 말! 여기서의 toDo는 toDos DB에 있는 element 요소 중 하나이다. 단 중요한 것은 li.id는 string타입이고 toDo.id는 number타입이다 이것을 number로 맞춰주어야한다.그래야 지워진다 같은것으로 판단하니깐!
+    saveToDos(); //지운 후 저장해줘야함
 }
 
 // 배열로 만들어진 parsedToDos의 각각 인덱스에 function을 각각 넣어준다. 아래 코드 parsedToDos.forEach((item) => console.log("this is the turn of ", item));과 동일하다. 난 후자의 방법을 선택
