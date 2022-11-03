@@ -23,15 +23,22 @@ function saveToDos(){
 // form 태그는 전에도 했듯이 submit 이벤트를 가진다 따라서 기본 동작을 막아줘야한다.
 //  아하 그래서 지금 여기까지 form과 list만 만들고 실행 해보면 todolist칸에 뭘 작성하고 엔터를 누르면 새로고침이 되는구나!!!!!(todolist부분에 작성한게 그냥 깜빡거리고 없어진다)
 
-function handleToDoSubmit(event){
-    event.preventDefault(); // 이거까지만 작성하고 todolit부분에 문자를 작성하고 엔터를 누르면 새로고침이 되지않는다(깜빡거리지않아). 왜냐면 이함수는 기본동작을 막아주고 있기 때문이다!
+function handleToDoSubmit(event){  // 실질적으로 이 함수가 데이터 저장시켜 줌, paintToDo는 화면에 보여주기 위한 함수
+    event.preventDefault(); // 이거까지만 작성하고 todolit부분에 문자를 작성하고 엔터를 누르면 새로고침이 되지않는다(깜빡거리지않아). 왜냐면 이 함수는 기본동작을 막아주고 있기 때문이다!
     // toDoInput.value 즉 입력값을 newTodo에 저장한 후 toDoInput.value 입력 값을 비워준다
     const newTodo = toDoInput.value; // 입력 값을 const newTodo 에 저장!
     // const 변수에 입력 값을 저장 해 놓았으므로 이 코드 다음엔 input의 value를 가지고 무얼 하든 newToDo에는 아무 영향이 없다.
     toDoInput.value = ""; //그리고 input 값을 빈 칸으로만들어
     // console.log(newTodo, toDoList.value);  //여기서 이걸 출력하면 newTodo는 const이므로 아까 입력 값이 그대로 출력되고, toDoList.value의 값은 위 코드에서 공백으로 대입해줬으니 공백이 출력 된다.
-    toDos.push(newTodo);  // toDos 배열을 가지고 와서 newTodo를 push 할 것이다.
-    paintToDo(newTodo);
+    // toDos.push(newTodo);  // toDos 배열을 가지고 와서 newTodo(text)를 push 할 것이다.
+
+    // 이젠 text를 push 하는 것이 아니라 고유 ID와 text를 모두 필요로 하기 때문에(toDo를 하나하나 구분해서 찾기 위해) 객체를 이용하여 push할 것이다.
+    const newTodoObj = {
+        text : newTodo,
+        id : Date.now(),
+    };
+    toDos.push(newTodoObj)
+    paintToDo(newTodoObj);
     saveToDos(); //toDo리스트 만든 후 저장
 }
 
@@ -40,9 +47,10 @@ function paintToDo(newTodo){
     // background 에서 JS로 HTML을 만들어 body에 넣어준 것처럼 li를 만들어 줄 것이다!
     // 앞 li는 변수 명, 뒤에 ""안에 있는 li는 태그 이다.
     const li = document.createElement("li");
+    li.id = newTodo.id;
     const span = document.createElement("span");
     // span을 만들고 span에 쓰여질 입력 값 newTodo를 span.innertext에 넣어 줌!
-    span.innerText = newTodo; // 입력 값이 저장된 newTodo가 이제 span의 innertext 가 된 것! 아그리고 span을 사용 이유는 이후에 옆에 버튼을 만들것이기 때문인다 div로 만들면 한 라인을 다차지하므로 인 라인 방식이 아닌 블럭 방식인 span을 사용한 것이다!
+    span.innerText = newTodo.text; // 입력 값이 저장된 newTodo가 이제 span의 innertext 가 된 것! 아그리고 span을 사용 이유는 이후에 옆에 버튼을 만들것이기 때문인다 div로 만들면 한 라인을 다차지하므로 인 라인 방식이 아닌 블럭 방식인 span을 사용한 것이다!
     const button = document.createElement("button");
     // 이렇게 변수 명만 만들었을땐 아직 이 요소들이 어디안에 위치 해있는지 알수 없고 변수만 만든 것!이제 아래코드를 추가해서 태그의 위치를 HTML에서 배치시켜보자
     button.innerText ="❌";
@@ -64,7 +72,7 @@ function paintToDo(newTodo){
 function delteToDo(event){
     // console.log(event.target.parentElement.innerText); 눌린 버튼의 정확한 위치를 알 수 있는 코드
     // 매우중요한 개념!!!!! ==> target은 클릭 된 HTML element이며, 그리고 모든 HTML element에는 하나 이상의 property가 있다. parentElement는 클릭 된 element의 부모이다. 즉 여기서 button의 부모는 li를 지칭!
-    const li  = event.target.parentElement;  //삭제하고 싶은 li
+    const li  = event.target.parentElement;  // 삭제하고 싶은 li
     li.remove(); // li를 지운다
 }
 
@@ -89,3 +97,4 @@ if(savedToDos !== null){
     parsedToDos.forEach(paintToDo); // 저장소에서 가져온 배열로 만들어진 parsedToDos의 각각 아이템에 대해 function을 넣어준다. HTML을 그려주게 됨 따라서 새로 고침을 해도 painToDo를 통해서 HTML이 localstorage에 있는 데이터와 같게 출력 된다.
 
 }
+
